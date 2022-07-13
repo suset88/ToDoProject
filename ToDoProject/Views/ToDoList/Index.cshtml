@@ -1,0 +1,56 @@
+﻿@model ToDoProject.ViewModels.ToDoListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="ToDoList" asp-action="Index" method="get">
+    <p>
+        Select User: 
+        <select asp-for="UserFilter" asp-items="Model.Users">
+            <option value="">All</option>
+        </select>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ToDoLists[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToDoLists[0].User)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.ToDoLists[0].Items)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ToDoLists) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Items != null && item.Items.Any() ? item.Items.Count() : 0)
+            </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
